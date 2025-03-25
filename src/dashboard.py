@@ -35,43 +35,7 @@ model_comparison_path = os.path.join(root_dir, 'data', 'model_comparison.csv')
 model_comparison = pd.read_csv(model_comparison_path)
 model_comparison = model_comparison.set_index('Unnamed: 0')
 model_comparison.index.name = 'Model'
-# App title
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-import pickle
-import os
-import plotly.express as px
-import plotly.graph_objects as go
 
-# Define the path handling to make it work both locally and on Streamlit Cloud
-current_dir = os.path.dirname(os.path.abspath(__file__))
-root_dir = os.path.dirname(current_dir)
-
-# Load the processed data
-data_path = os.path.join(root_dir, 'data', 'telco_processed.csv')
-df = pd.read_csv(data_path)
-df['Churn_Binary'] = (df['Churn'] == 'Yes').astype(int)
-
-# Try to load the saved models
-try:
-    logistic_model_path = os.path.join(root_dir, 'models', 'logistic_model.pkl')
-    rf_model_path = os.path.join(root_dir, 'models', 'rf_model.pkl')
-    xgb_model_path = os.path.join(root_dir, 'models', 'xgb_model.pkl')
-    
-    logistic_model = pickle.load(open(logistic_model_path, 'rb'))
-    rf_model = pickle.load(open(rf_model_path, 'rb'))
-    xgb_model = pickle.load(open(xgb_model_path, 'rb'))
-    models_loaded = True
-except:
-    models_loaded = False
-
-# Load model comparison data
-model_comparison_path = os.path.join(root_dir, 'data', 'model_comparison.csv')
-model_comparison = pd.read_csv(model_comparison_path)
-model_comparison = model_comparison.set_index('Unnamed: 0')
-model_comparison.index.name = 'Model'
 # App title
 st.title('Telco Customer Churn Analysis')
 st.markdown("""
@@ -253,40 +217,41 @@ elif selection == 'Model Performance':
                title=f'Model Comparison - {selected_metric}')
     st.plotly_chart(fig, use_container_width=True)
     
- # Show confusion matrices - needs path fix
-st.subheader('Confusion Matrices')
-
-col1, col2, col3 = st.columns(3)
-
-with col1:
-    confusion_lr_path = os.path.join(root_dir, 'images', 'confusion_matrix_Logistic_Regression.png')
-    st.image(confusion_lr_path, caption='Logistic Regression')
-
-with col2:
-    confusion_rf_path = os.path.join(root_dir, 'images', 'confusion_matrix_Random_Forest.png')
-    st.image(confusion_rf_path, caption='Random Forest')
-
-with col3:
-    confusion_xgb_path = os.path.join(root_dir, 'images', 'confusion_matrix_XGBoost.png')
-    st.image(confusion_xgb_path, caption='XGBoost')
-
-# ROC Curves - needs path fix
-st.subheader('ROC Curves')
-
-col1, col2, col3 = st.columns(3)
-
-with col1:
-    roc_lr_path = os.path.join(root_dir, 'images', 'roc_curve_Logistic_Regression.png')
-    st.image(roc_lr_path, caption='Logistic Regression')
-
-with col2:
-    roc_rf_path = os.path.join(root_dir, 'images', 'roc_curve_Random_Forest.png')
-    st.image(roc_rf_path, caption='Random Forest')
-
-with col3:
-    roc_xgb_path = os.path.join(root_dir, 'images', 'roc_curve_XGBoost.png')
-    st.image(roc_xgb_path, caption='XGBoost')
+    # Show confusion matrices - needs path fix
+    st.subheader('Confusion Matrices')
     
+    col1, col2, col3 = st.columns(3)
+    
+    with col1:
+        confusion_lr_path = os.path.join(root_dir, 'images', 'confusion_matrix_Logistic_Regression.png')
+        st.image(confusion_lr_path, caption='Logistic Regression')
+    
+    with col2:
+        confusion_rf_path = os.path.join(root_dir, 'images', 'confusion_matrix_Random_Forest.png')
+        st.image(confusion_rf_path, caption='Random Forest')
+    
+    with col3:
+        confusion_xgb_path = os.path.join(root_dir, 'images', 'confusion_matrix_XGBoost.png')
+        st.image(confusion_xgb_path, caption='XGBoost')
+    
+    # ROC Curves - needs path fix
+    st.subheader('ROC Curves')
+    
+    col1, col2, col3 = st.columns(3)
+    
+    with col1:
+        roc_lr_path = os.path.join(root_dir, 'images', 'roc_curve_Logistic_Regression.png')
+        st.image(roc_lr_path, caption='Logistic Regression')
+    
+    with col2:
+        roc_rf_path = os.path.join(root_dir, 'images', 'roc_curve_Random_Forest.png')
+        st.image(roc_rf_path, caption='Random Forest')
+    
+    with col3:
+        roc_xgb_path = os.path.join(root_dir, 'images', 'roc_curve_XGBoost.png')
+        st.image(roc_xgb_path, caption='XGBoost')
+
+
 # Churn Prediction page
 elif selection == 'Churn Prediction':
     st.header('Churn Prediction Tool')
