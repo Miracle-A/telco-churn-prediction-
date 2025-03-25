@@ -34,7 +34,8 @@ except:
 model_comparison_path = os.path.join(root_dir, 'data', 'model_comparison.csv')
 model_comparison = pd.read_csv(model_comparison_path)
 model_comparison = model_comparison.set_index('Unnamed: 0')
-model_comparison.index.name = 'Model'import streamlit as st
+model_comparison.index.name = 'Model'
+# App title
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
