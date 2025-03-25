@@ -13,8 +13,18 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 root_dir = os.path.dirname(current_dir)
 
 # Load the processed data
-data_path = os.path.join(root_dir, 'data', 'telco_processed.csv')
-df = pd.read_csv(data_path)
+# Load the processed data with multiple fallback paths
+try:
+    # First attempt - using the path approach we already had
+    data_path = os.path.join(root_dir, 'data', 'telco_processed.csv')
+    df = pd.read_csv(data_path)
+except FileNotFoundError:
+    try:
+        # Second attempt - look in the current directory
+        df = pd.read_csv('telco_processed.csv')
+    except FileNotFoundError:
+        # Third attempt - look directly in the data folder at the app root
+        df = pd.read_csv('/mount/src/telco-churn-prediction-/data/telco_processed.csv')
 df['Churn_Binary'] = (df['Churn'] == 'Yes').astype(int)
 
 # Try to load the saved models
