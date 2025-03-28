@@ -1,5 +1,9 @@
 # Telecom Customer Churn Prediction
 
+## Live Dashboard
+
+Explore the interactive dashboard here: [Telco Churn Prediction Dashboard](https://xxqtczzu5qrahlcsdmdcsf.streamlit.app/)
+
 This project develops a machine learning solution to predict customer churn for a telecommunications company. By identifying at-risk customers before they leave, our model enables proactive retention strategies with potential annual savings of $3.8M.
 
 ![image](https://github.com/user-attachments/assets/ed8dc222-4389-443a-a501-26839b4f2375)
